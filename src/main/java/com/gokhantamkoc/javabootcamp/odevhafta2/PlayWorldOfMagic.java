@@ -4,6 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 public class PlayWorldOfMagic implements CommandLineRunner {
 	public static void main(String[] args) {
@@ -40,10 +43,41 @@ public class PlayWorldOfMagic implements CommandLineRunner {
 			String[] bossNames,
 			float[] bossHPs
 			) {
-		
+
 		int spellsUsed = 0;
 		// ______ BASLANGIC _______ Kodunuz buradan baslamali
-		
+
+		int round=0;
+		String mainSkill="";
+		float mainDamage=5;
+
+		for (int i = 0; i <spellDamageInfo.length ; i++) {
+			if (mainDamage< spellDamageInfo[i]){
+				mainDamage=spellDamageInfo[i];
+				mainSkill=magicianSpells[i];
+
+			}
+
+		}
+
+
+
+		for (int i = 0; i <bossHPs.length; i++) {
+
+
+			while (bossHPs[i]>0){
+				System.out.println(spellsUsed+1 +". round -> " + "Magician vs " + bossNames[i] + "\nUsed Spell -> " + mainSkill);
+				bossHPs[i]-=mainDamage;
+
+				spellsUsed++;
+				if (bossHPs[i]>0){
+					System.out.println("Boss " + bossNames[i] + " Damage Given : " + mainDamage + " Remain HP : " + bossHPs[i]);
+				}else
+					System.out.println(bossNames[i]  + " is dead"+ "\n");
+			}
+		}
+
+
 		// ______ SON _______ Kodunuz burada bitmeli
 		/* NOT: ______ BASLANGIC _______ ve ______ SON _______ 
 		 * arasina istediginiz kadar sayida satir ekleyebilirsiniz.
