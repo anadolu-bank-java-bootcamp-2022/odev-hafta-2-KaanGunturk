@@ -47,35 +47,43 @@ public class PlayWorldOfMagic implements CommandLineRunner {
 		int spellsUsed = 0;
 		// ______ BASLANGIC _______ Kodunuz buradan baslamali
 
-		int round=0;
+		//Bu kisimda kullanacagim degiskenleri tanimladim.
 		String mainSkill="";
-		float mainDamage=5;
+		float mainDamage=0;
+		int round=1;
 
-		for (int i = 0; i <spellDamageInfo.length ; i++) {
-			if (mainDamage< spellDamageInfo[i]){
-				mainDamage=spellDamageInfo[i];
-				mainSkill=magicianSpells[i];
-
+		//Bu dongude spellDamage listesinden hasari en yuksek olan spell'i sectim.
+		for (int i = 0; i < spellDamageInfo.length ; i++) {
+			if (mainDamage < spellDamageInfo[i]){
+				mainDamage = spellDamageInfo[i];
+				mainSkill = magicianSpells[i];
 			}
-
 		}
 
 
-
+		//Bu dongude bossHps listesinde bulunan boss Hp'lerini gezdim.
 		for (int i = 0; i <bossHPs.length; i++) {
 
-
+			//while kullanarak bossHps listesinde boss canlari 0'a inene kadar devam etmesini sagladim.
 			while (bossHPs[i]>0){
-				System.out.println(spellsUsed+1 +". round -> " + "Magician vs " + bossNames[i] + "\nUsed Spell -> " + mainSkill);
+				System.out.println(round +". round -> " + "Magician vs " + bossNames[i] + "\nUsed Spell -> " + mainSkill);
+
+				//Her bir index'te bulunan boss Hp'lerini vurulan hasardan cıkartarak yeni canlarini belirledim.
 				bossHPs[i]-=mainDamage;
 
+				//1 tur gectigi icin round ve spellsUsed 1 arttirdim her tur dondugunde 1 artacak
 				spellsUsed++;
+				round++;
+
+				//if-else kisminda ise boss'un olup olmedigi kosullarina göre ekrana cikti aldim.
 				if (bossHPs[i]>0){
-					System.out.println("Boss " + bossNames[i] + " Damage Given : " + mainDamage + " Remain HP : " + bossHPs[i]);
+					System.out.println("Boss " + bossNames[i] + " Damage Given : " + mainDamage + " Remain HP : " + bossHPs[i]+ "\n");
 				}else
 					System.out.println(bossNames[i]  + " is dead"+ "\n");
 			}
+
 		}
+		System.out.println("Number of used spells = " + spellsUsed+ "\n");
 
 
 		// ______ SON _______ Kodunuz burada bitmeli
